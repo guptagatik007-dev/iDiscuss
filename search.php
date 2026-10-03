@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iDiscuss</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        body {
+            min-height: 100vh;
+        }
+
+        .cnt {
+            background-color: rgb(226, 229, 241);
+            max-width: 120vh;
+            min-height: 25vh;
+            margin: auto;
+            border-radius: 10px;
+            padding: 2%;
+        }
+
+        .forum_heading,
+        .button_thread,
+        .forum_desc {
+            margin: 10px;
+            max-width: 95%;
+            font-family: 'Times New Roman', Times, serif;
+        }
+    </style>
+</head>
+
+<body>
+  <!-- getting navbar and connecting to database -->
+  <?php require 'partials/_dbconnect.php' ;
+        require 'partials/_nav.php' ;
+  ?>
+  <?php
+    $query = $_GET['search_for'];
+    
+  ?>
+
+  <div class="container my-3">
+    <h1>Search Results for " <em style="color:green"><?php echo $query; ?></em>"</h1>
+  </div>
+
+<div class="container my-4">
+<!-- forum questions  -->
+<?php
+
+$sql = "SELECT * FROM `threads` WHERE MATCH (thread_title,thread_desc) against('".$query."')";
+$result = mysqli_query($conn,$sql);
+$noResult = true;
+
+while($row = mysqli_fetch_assoc($result)){
+
+    $noResult = false;
+    $thread_id = $row['thread_id'];
+    $thread_title = $row['thread_title'];
+    $thread_desc = $row['thread_desc'];
+
+    $thread_title = str_replace("<","&lt",$thread_title);
+    $thread_title = str_replace("<","&gt",$thread_title);
+
+    $thread_desc = str_replace("<","&lt",$thread_desc);
+    $thread_desc = str_replace("<","&gt",$thread_desc);
+    $user_id = $row['user_id'];
+
+    // just temporarily need to be changed after completely setting up 
+    if($user_id == 0){
+        $user_id = 1;
+    }
+
+    $sql2 = 'SELECT user_email FROM `users` WHERE user_id = '.$user_id.'';
+    $result2 = mysqli_query($conn,$sql2);
+    $row2 = mysqli_fetch_assoc($result2);
+    $user = $row2['user_email'];
+
+    echo '
+    <div class="container">
+        <img class="mx-2 my-2" src="static/default_user.png" width="50px" style="float:left;" alt="">
+        <h5><a href="thread.php?thread_id='. $thread_id. '" class="text-dark">'.$thread_title.'</a></h5>
+        <h6>By: '.$user.'</h6>
+        <p>'.$thread_desc.'</p>
+    </div>';
+
+}
+if($noResult){
+    echo'<div class="container cnt">
+    <h2>No results found</h2>
+    <h5>Be the first one to ask</h5>
+    <li>Warn About Adult Content.</li>
+<li>Do not spam.</li>
+<li>Do Not Bump Posts.</li>
+<li>Do Not Offer to Pay for Help.</li>
+<li>Do Not Offer to Work For Hire.</li>
+    
+</div>';
+
+}
+?>
+
+</div>
+  
+  
+
+
+  
+  
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
