@@ -65,7 +65,7 @@ while($row = mysqli_fetch_assoc($result)){
 
     $thread_desc = str_replace("<","&lt",$thread_desc);
     $thread_desc = str_replace("<","&gt",$thread_desc);
-    $user_id = $row['user_id'];
+    $user_id = $row['thread_user_id'];
 
     // just temporarily need to be changed after completely setting up 
     if($user_id == 0){
