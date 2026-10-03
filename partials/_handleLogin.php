@@ -14,14 +14,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         $_SESSION['loggedin'] = true;
         $_SESSION['user_id'] = $row['user_id'];
         $_SESSION['user_email'] =$row['user_email'];
-        header("location: /Forum/index.php?show=logged_in");
+        header("location: index.php?show=logged_in");
        }
        else{
-        header("location: /Forum/index.php?show=wrong_pass");
+        header("location: index.php?show=wrong_pass");
        }
     }
     else{
-        header("location: /Forum/index.php?show=wrong_email");
+        header("location: index.php?show=wrong_email");
        }
 }
 ?>

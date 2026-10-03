@@ -7,7 +7,7 @@ include '_notLoggedinModal.php';
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" >
     <div class="container-fluid">
-        <a class="navbar-brand" href="/Forum/index.php">iDiscuss</a>
+        <a class="navbar-brand" href="index.php">iDiscuss</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,7 @@ include '_notLoggedinModal.php';
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/Forum/index.php">Home</a>
+                    <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
@@ -39,7 +39,7 @@ include '_notLoggedinModal.php';
                         $cat_name = $row['category_name'];
           
                         # putting the variables into the cards
-                        echo '<li><a class="dropdown-item" href="/Forum/threads_list.php?cat_id='.$cat_id.'">'.$cat_name.'</a></li>';
+                        echo '<li><a class="dropdown-item" href="threads_list.php?cat_id='.$cat_id.'">'.$cat_name.'</a></li>';
                     }
                     ?>
                     </ul>
@@ -48,7 +48,7 @@ include '_notLoggedinModal.php';
                     <a class="nav-link">Contact</a>
                 </li>
             </ul>
-            <form class="d-flex" role="search" action="/Forum/search.php" method="get">
+            <form class="d-flex" role="search" action="search.php" method="get">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="search_for" id="search_for">
                 <button class="btn btn-success" type="submit">Search</button>
                 <?php
