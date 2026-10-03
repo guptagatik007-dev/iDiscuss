@@ -72,7 +72,7 @@
         if($method == 'POST' && $loggedin == true){
             $user_id = $_SESSION['user_id'];
             $comment_content = $_POST['comment_content'];
-            $sql = "INSERT INTO `comments` ( `comment_content`, `thread_id`, `user_id`, `comment_time`) 
+            $sql = "INSERT INTO `comments` ( `comment_content`, `thread_id`, `comment_by`, `comment_time`) 
             VALUES ( '$comment_content', '$thread_id', '$user_id', current_timestamp());";
             $result = mysqli_query($conn,$sql);
             $showAlert = true;
@@ -126,7 +126,7 @@
                 $comment_content = $row['comment_content'];
                 $comment_content = str_replace("<","&lt",$comment_content);
                 $comment_content = str_replace("<","&gt",$comment_content);
-                $user_id = $row['user_id'];
+                $user_id = $row['comment_by'];
 
                 // just temporarily need to be changed after completely setting up 
                 if($user_id == 0){

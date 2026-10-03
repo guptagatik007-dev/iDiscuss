@@ -70,7 +70,7 @@
             $thread_desc = $_POST['thread_desc'];
             $user_id = $_SESSION['user_id'];
 
-            $sql = "INSERT INTO `threads` ( `thread_title`, `thread_desc`, `user_id`, `Category_id`, `thread_time`)
+            $sql = "INSERT INTO `threads` ( `thread_title`, `thread_desc`, `thread_user_id`, `thread_cat_id`, `thread_time`)
             VALUES ( '$thread_title' , '$thread_desc', '$user_id', '$id', current_timestamp())";
             $result = mysqli_query($conn,$sql);
             $showAlert = true;
@@ -110,7 +110,7 @@
         <!-- forum questions  -->
         <?php
 
-            $sql = 'SELECT * FROM `threads` WHERE category_id = '.$id.'';
+            $sql = 'SELECT * FROM `threads` WHERE thread_cat_id = '.$id.'';
             $result = mysqli_query($conn,$sql);
             $noResult = true;
 
@@ -126,7 +126,7 @@
 
                 $thread_desc = str_replace("<","&lt",$thread_desc);
                 $thread_desc = str_replace("<","&gt",$thread_desc);
-                $user_id = $row['user_id'];
+                $user_id = $row['thread_user_id'];
 
                 // just temporarily need to be changed after completely setting up 
                 if($user_id == 0){
